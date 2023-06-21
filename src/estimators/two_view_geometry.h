@@ -207,7 +207,6 @@ struct TwoViewGeometry {
                           const Options& options);
 
   // Estimate two-view geometry from uncalibrated image pair.
-  //
   // @param camera1         Camera of first image.
   // @param points1         Feature points in first image.
   // @param camera2         Camera of second image.

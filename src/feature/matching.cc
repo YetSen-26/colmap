@@ -1040,6 +1040,7 @@ void SequentialFeatureMatcher::RunSequentialMatching(
               << std::flush;
 
     image_pairs.clear();
+    //顺序匹配
     for (int i = 0; i < options_.overlap; ++i) {
       const size_t image_idx2 = image_idx1 + i;
       if (image_idx2 < image_ids.size()) {
@@ -1309,8 +1310,14 @@ void SpatialFeatureMatcher::Run() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Matching
+  // step1: 建立位置矩阵 n = 3
+  // step2：设置邻居的个数
+  // const int knn = std::min<int>(options_.max_num_neighbors, num_location);
+  // step3: 利用 knn search 找到距离参考帧距离最近的knn个邻居
+  // search_index.knnSearch(location, indiceds, knn, search_params);
+  // step4: 判断候选邻居到参考帧是否超过了
   //////////////////////////////////////////////////////////////////////////////
-
+//空间匹配
   const float max_distance =
       static_cast<float>(options_.max_distance * options_.max_distance);
 
@@ -1350,7 +1357,6 @@ void SpatialFeatureMatcher::Run() {
 
     DatabaseTransaction database_transaction(&database_);
     matcher_.Match(image_pairs);
-
     PrintElapsedTime(timer);
   }
 
